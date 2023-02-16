@@ -99,7 +99,7 @@ function(
 #Use the variables to create lables for your notebook
 fp.notebook
 .addLabels({
-    'serive': name,
+    'service': name,
     'status': status 
     })
 
