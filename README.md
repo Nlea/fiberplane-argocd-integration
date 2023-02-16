@@ -1,9 +1,9 @@
 # Fiberplane-Argocd-Integration
 This repo explains how to leverage [argocd-notification service's webhook](https://argocd-notifications.readthedocs.io/en/stable/services/webhook/) to create notebooks in fiberplane on certained [argocd notification triggers](https://argocd-notifications.readthedocs.io/en/stable/triggers/). 
 
-It explains who to set up fiberplane's daemon fpd to connect to prometheus in a cluster which allows to include addional metrics in the notebook
+It explains how to set up [fiberplane's daemon fpd](https://docs.fiberplane.com/docs/quickstart#set-up-the-fiberplane-daemon) to connect to prometheus in a cluster which allows to include addional metrics in the notebook
 
-Finally the tutorial describeson how to use the information from argocd and promethues within a fiberplane template.
+Finally the tutorial describes how to use the information from argocd and prometheus within a fiberplane template.
 
 ## Prerequisites
 - A running Kubernetes Cluster (locally you can use: [kind](https://kind.sigs.k8s.io/), [minikube](https://minikube.sigs.k8s.io/docs/start/), [microk8s](https://microk8s.io/), ... ) and [kubectl](https://kubernetes.io/docs/tasks/tools/) set up
@@ -68,19 +68,19 @@ In the body you can define which information you like to pass to the notebook.
 ✏️ You can find the full argocd-notification-cm.yaml in this repo. Argocd-notifaction-cm comes already with usefule templates and triggers including integration possibilities out of the box for mail and slack. 
 
 ## Fpd and Prometheus
-In order to also include some metrics from Prometheus in the notebook we need to use Fiberplane's Daemon (fpd) to connect the running Prometheus in our Cluster: 
+In order to also include some metrics from Prometheus in the notebook we need to use Fiberplane's Daemon (fpd) to connect the running Prometheus in our cluster: 
 
-1. Create a namespace for the fiberplane proxy
+1. Create a namespace for the fiberplane daemon
 2. Generate a Fiberplane fpd Token either via the [fiberplane studio UI](https://docs.fiberplane.com/docs/deploy-to-kubernetes#generate-an-fpd-api-token-in-the-studio) or using the [CLI fp](https://docs.fiberplane.com/docs/quickstart#generate-a-daemon-api-token-using-the-cli).
-3. Apply the configmap.yaml and apply the deployment.yaml as described in the [docs](https://docs.fiberplane.com/docs/deploy-to-kubernetes). Make sure to link your prometheus instance. If prometheus runs as a service in the same Cluster under a different name space to can use the follwing patter: ``` url: http://servicename.namespace.svc.cluster.local ```
-4. Make sure your CLuster has access to the interent
+3. Apply the configmap.yaml and apply the deployment.yaml as described in the [docs](https://docs.fiberplane.com/docs/deploy-to-kubernetes). Make sure to link your prometheus instance. If prometheus runs as a service in the same cluster under a different namespace you can use the follwing patter: ``` url: http://servicename.namespace.svc.cluster.local ```
+4. Make sure your cluster has access to the interent
 5. Check logs and fiberplane studio to see if the data integration is successful 
 
 ✏️ You can find the configmap.yaml and deployment yaml [here](https://github.com/fiberplane/quickstart/tree/main/proxy-kubernetes). 
 
 
 ## Update Fiberplane template and content
-Open the template in a text editor. We can now include the information we get from the argocd-notification webhook with the Post call as well as metrics from prometheus that we connected via fpd. 
+Open the template in a text editor. We can now include the information we get from the argocd-notification webhook with the POST call as well as metrics from Prometheus that we connected via fpd. 
 
 ### Using data from the webhook
 
@@ -134,14 +134,14 @@ fp.notebook
 ```
 ✏️ You can find the full template in this repo. 
 
-### Updating your Template in fiberplane studio
+### Updating your template in fiberplane studio
 
 * First you can use the CLI to validate your template: ``` fp templates validate argocd.jsonnet ``` 
 * Update your template with the CLI ``` fp templates update --template-path ```
 
 
 ## Add Github repo to argocd and subscripe to webhook
-Finally let's tell argo which repo to poll and subscribe the app to a trigger and the webhook. Open your terminal
+Finally let's tell argo which repo to poll and subscribe the app to a trigger and the webhook. Open your terminal:
 
 ```
 kubectl apply -n argocd -f - << EOF
