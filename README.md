@@ -157,7 +157,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: kustomize-guestbook
+    path: PATH_IN_YOUR_REPO
     repoURL: https://github.com/YOUR_REPO
     targetRevision: HEAD
   syncPolicy:
