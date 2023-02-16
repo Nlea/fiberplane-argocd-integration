@@ -21,7 +21,7 @@ fp template init --template-path ./argocd-template.jsonnet```
 5. Select yes to create a Trigger (Webhook URL) for the template
 6. © Save the trigger url, looking something like this ``` Trigger URL:  https://studio.fiberplane.com/api/triggers/xxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxx ```
 
-Note: We will motify the template content later. For now we just need the endpoint in order to create the argocd-notification webhook
+Note: We will update the template content later. For now we just need the endpoint in order to create the argocd-notification webhook
 
 ## Argocd-notification
 In order to create the webhook we need to modify the **argocd-notification-cm.yaml**. 
