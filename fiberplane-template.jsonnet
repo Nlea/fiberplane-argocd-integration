@@ -16,7 +16,7 @@ function(
   .new(title)
   .setTimeRangeRelative(minutes=15)
   .addLabels({
-    'serive': name,
+    'service': name,
     'status': status
   })
   .setDataSourceForProviderType('prometheus', 'data-source-name', 'proxy-name') // <------ add here your datasource configuration
